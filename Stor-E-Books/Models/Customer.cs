@@ -14,4 +14,8 @@ public partial class Customer
     public string Email { get; set; } = null!;
 
     public string Password { get; set; } = null!;
+
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+
+    public virtual ICollection<Unsuccessfullogin> Unsuccessfullogins { get; set; } = new List<Unsuccessfullogin>();
 }
