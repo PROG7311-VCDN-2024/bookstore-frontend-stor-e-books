@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Stor_E_Books.Models;
+
 namespace Stor_E_Books
 {
     public class Program
@@ -8,6 +11,9 @@ namespace Stor_E_Books
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<StorEBooksContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Stor-E-Books")));
 
             var app = builder.Build();
 
