@@ -32,6 +32,11 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@if (ViewBag.Message != null)
+{
+    <p>@ViewBag.Message</p>
+}
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
