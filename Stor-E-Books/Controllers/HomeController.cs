@@ -7,13 +7,16 @@ using System.Xml.Linq;
 
 namespace Stor_E_Books.Controllers
 {
+
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+       
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+           
         }
 
         public IActionResult Index()
