@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Stor_E_Books.Models.Items>
+
+@{
+    ViewData["Title"] = "ShowItems";
+}
+
+<h1>ShowItems</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+                <td>
+                    <form asp-controller="Home" asp-action="AddToCart" method="post">
+                        <input type="hidden" name="bookId" value="@item.BookID" />
+                      @*   <input type="hidden" name="bookName" value="@item.BookName" /> *@
+                        <button type="submit" class="btn btn-primary">Add To Cart</button>
+                    </form>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

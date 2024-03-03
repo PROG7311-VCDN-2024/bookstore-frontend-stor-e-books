@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Stor_E_Books.Models;
 
 namespace Stor_E_Books.Models;
 
@@ -52,4 +53,8 @@ public partial class StorEBooksContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+public DbSet<Stor_E_Books.Models.Items> Items { get; set; } = default!;
+
+public DbSet<Stor_E_Books.Models.Cart> Cart { get; set; } = default!;
 }

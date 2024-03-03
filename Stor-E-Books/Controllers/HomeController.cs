@@ -125,9 +125,43 @@ namespace Stor_E_Books.Controllers
             return View();
         }
 
+        public IActionResult ShowItems()
+        {
+            //adding items into the list 
 
-    } 
+            if (ItemsManager.itm.Count == 0)
+            {
+                ItemsManager.itm.Add(new Items(1, "Harry potter", "J.K Rowling", "Fantasy", 450));
+                ItemsManager.itm.Add(new Items(2, "Hunger Games", "suzanne Collins", "Sci-Fi", 350));
+                ItemsManager.itm.Add(new Items(3, "The Notebook", "Nicholas Sparks", "Romance", 650));
+                ItemsManager.itm.Add(new Items(4, "Pride and Prejudice", "Jane Austen", "Romance", 600));
+                ItemsManager.itm.Add(new Items(5, "The Great Gatsby", "F. Scott Fitzgerald", "clasic", 550));
+            }
+
+
+            return View(ItemsManager.itm);
+
+            
+        }
+        public IActionResult AddToCart()
+        {
+            return View();
+        }
+     
+        [HttpPost]
+        public IActionResult AddToCart(int BookID, string BookName)
+        {
+
+            CartManager.cat.Add(item: new CART_ITEM { bookID = BookID});
+            
+
+            return RedirectToAction("ShowItems");
+        }
+        
+
+
     }
+}
 
     
 
