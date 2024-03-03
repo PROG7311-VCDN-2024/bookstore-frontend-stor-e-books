@@ -157,7 +157,13 @@ namespace Stor_E_Books.Controllers
 
             return RedirectToAction("ShowItems");
         }
-        
+
+        public IActionResult Search(string searchTerm)
+        {
+            var matchingBooks = ItemsManager.itm.Where(book => book.BookName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+            return View("ShowItems", matchingBooks);
+        }
+
 
 
     }

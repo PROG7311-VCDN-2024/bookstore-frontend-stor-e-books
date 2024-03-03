@@ -49,6 +49,35 @@
                         <button type="submit" class="btn btn-primary">Add To Cart</button>
                     </form>
                 </td>
+
+                <div class="d-flex justify-content-end mt-4">
+                    <form asp-action="Search" method="GET" class="form-inline">
+                        <div class="input-group">
+                            <input type="text" name="searchTerm" class="form-control" placeholder="Search by book name...">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+               
+
+@foreach (var book in Model)
+{
+    <div>
+        <h3>@book.BookName</h3>
+        <p><strong>Author:</strong> @book.Author</p>
+        <p><strong>Price:</strong> $@book.price</p>
+        <form asp-action="AddToCart" method="post">
+            <input type="hidden" name="BookID" value="@book.BookID" />
+            <input type="hidden" name="BookName" value="@book.BookName" />
+            <button type="submit" class="btn btn-primary">Add to Cart</button>
+        </form>
+    </div>
+}
+
+
         </tr>
 }
     </tbody>
