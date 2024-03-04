@@ -34,7 +34,7 @@ namespace Stor_E_Books.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
+        //comment
         public IActionResult CustomerReg()
         {
             return View();
