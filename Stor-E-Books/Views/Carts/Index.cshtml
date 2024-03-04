@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Stor_E_Books.Models.Cart>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cartPriceTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.bookID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cartQuantity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.cartPriceTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bookID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cartQuantity)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.cartID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.cartID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.cartID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
