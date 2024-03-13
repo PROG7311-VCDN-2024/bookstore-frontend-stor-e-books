@@ -68,7 +68,7 @@
     <div>
         <h3>@book.BookName</h3>
         <p><strong>Author:</strong> @book.Author</p>
-        <p><strong>Price:</strong> $@book.price</p>
+        <p><strong>Price:</strong> R @book.price</p>
         <form asp-action="AddToCart" method="post">
             <input type="hidden" name="BookID" value="@book.BookID" />
             <input type="hidden" name="BookName" value="@book.BookName" />

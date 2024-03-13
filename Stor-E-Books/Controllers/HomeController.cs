@@ -4,10 +4,10 @@ using Stor_E_Books.Models;
 using System.Data;
 using System.Diagnostics;
 using System.Xml.Linq;
+using static Azure.Core.HttpHeader;
 
 namespace Stor_E_Books.Controllers
 {
-
 
     public class HomeController : Controller
     {
@@ -43,7 +43,7 @@ namespace Stor_E_Books.Controllers
         [HttpPost]
         public IActionResult CustomerReg(string Name, string Surname, string Email, string Password)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=labVMH8OX\SQLEXPRESS;Initial Catalog=Stor-E-Books;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+            SqlConnection con = new SqlConnection(@"Data Source=LUBNAH\\SQLEXPRESS;Initial Catalog=Stor-E-Books;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 
             string insertQuery = "INSERT INTO CUSTOMER (name, surname, email,password) VALUES ( @Name, @Surname, @Email,@Password)";
 
@@ -87,7 +87,7 @@ namespace Stor_E_Books.Controllers
             string username, pass;
             username = Name;
             pass = Password;
-            SqlConnection con = new SqlConnection(@"Data Source=labVMH8OX\SQLEXPRESS;Initial Catalog=Stor-E-Books;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+            SqlConnection con = new SqlConnection(@"Data Source=LUBNAH\SQLEXPRESS;Initial Catalog=Stor-E-Books;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 
             try
             {
@@ -109,8 +109,6 @@ namespace Stor_E_Books.Controllers
                 {
                     ViewBag.Message = "Invalid credentials";
                 }
-
-
             }
             catch
             {
@@ -125,24 +123,69 @@ namespace Stor_E_Books.Controllers
             return View();
         }
 
-        public IActionResult ShowItems()
+        public IActionResult ShowItems(string bookName, string Author, string Genre, string Price )
         {
-            //adding items into the list 
-
-            if (ItemsManager.itm.Count == 0)
+            string bookname, author, genre, price;
+            bookname = bookName;
+            author = Author;
+            genre = Genre;
+            price = Price;
+            SqlConnection con = new SqlConnection(@"Data Source=LUBNAH\SQLEXPRESS;Initial Catalog=Stor-E-Books;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+            
+            try
             {
-                ItemsManager.itm.Add(new Items(1, "Harry potter", "J.K Rowling", "Fantasy", 450));
-                ItemsManager.itm.Add(new Items(2, "Hunger Games", "suzanne Collins", "Sci-Fi", 350));
-                ItemsManager.itm.Add(new Items(3, "The Notebook", "Nicholas Sparks", "Romance", 650));
-                ItemsManager.itm.Add(new Items(4, "Pride and Prejudice", "Jane Austen", "Romance", 600));
-                ItemsManager.itm.Add(new Items(5, "The Great Gatsby", "F. Scott Fitzgerald", "clasic", 550));
+                string Qry = "SELECT * FROM ITEMS WHERE bookname = '" + bookName + "' and author = '" + Author + "' and genre = '" + Genre + "' and price = '" + Price + "'";
+                SqlCommand cmd = new SqlCommand(Qry, con);
+                cmd.Parameters.AddWithValue("@BookName", bookName);
+                cmd.Parameters.AddWithValue("@Author", Author);
+                cmd.Parameters.AddWithValue("@Genre", Genre);
+                cmd.Parameters.AddWithValue("@Price", Price);
+
+                SqlDataAdapter sda = new SqlDataAdapter(Qry, con);
+                DataTable dataTable = new DataTable();
+                sda.Fill(dataTable);
+
+                if (dataTable.Rows.Count > 0)
+                {
+
+                    ViewBag.Message = "";
+                    return View(dataTable);
+
+                    //ViewBag.Message = "Login successful!";
+                }
+                else
+                {
+                    ViewBag.Message = "No items found matching the criteria";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Message = "An error occurred: " + ex.Message;
+            }
+            finally
+            {
+                con.Close();
             }
 
 
-            return View(ItemsManager.itm);
+            return View();
 
-            
+            //adding items into the list 
+
+            //if (ItemsManager.itm.Count == 0)
+            //{
+            //    ItemsManager.itm.Add(new Items(1, "Harry potter", "J.K Rowling", "Fantasy", 450));
+            //    ItemsManager.itm.Add(new Items(2, "Hunger Games", "Suzanne Collins", "Sci-Fi", 350));
+            //    ItemsManager.itm.Add(new Items(3, "The Notebook", "Nicholas Sparks", "Romance", 650));
+            //    ItemsManager.itm.Add(new Items(4, "Pride and Prejudice", "Jane Austen", "Romance", 600));
+            //    ItemsManager.itm.Add(new Items(5, "The Great Gatsby", "F. Scott Fitzgerald", "Clasic", 550));
+            //}
+
+            //return View(ItemsManager.itm);
         }
+
+        [HttpGet]
         public IActionResult AddToCart()
         {
             return View();
@@ -163,9 +206,6 @@ namespace Stor_E_Books.Controllers
             var matchingBooks = ItemsManager.itm.Where(book => book.BookName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
             return View("ShowItems", matchingBooks);
         }
-
-
-
     }
 }
 
