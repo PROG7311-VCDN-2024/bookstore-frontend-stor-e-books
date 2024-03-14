@@ -43,7 +43,7 @@ namespace Stor_E_Books.Controllers
         [HttpPost]
         public IActionResult CustomerReg(string Name, string Surname, string Email, string Password)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=LUBNAH\\SQLEXPRESS;Initial Catalog=Stor-E-Books;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+            SqlConnection con = new SqlConnection(@"Data Source=labVMH8OX\SQLEXPRESS;Initial Catalog=Stor-E-Books;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 
             string insertQuery = "INSERT INTO CUSTOMER (name, surname, email,password) VALUES ( @Name, @Surname, @Email,@Password)";
 
@@ -87,7 +87,7 @@ namespace Stor_E_Books.Controllers
             string username, pass;
             username = Name;
             pass = Password;
-            SqlConnection con = new SqlConnection(@"Data Source=LUBNAH\SQLEXPRESS;Initial Catalog=Stor-E-Books;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+            SqlConnection con = new SqlConnection(@"Data Source=labVMH8OX\SQLEXPRESS;Initial Catalog=Stor-E-Books;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 
             try
             {
