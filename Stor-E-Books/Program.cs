@@ -1,3 +1,5 @@
+using Firebase.Auth;
+
 namespace Stor_E_Books
 {
     public class Program
@@ -13,6 +15,12 @@ namespace Stor_E_Books
             });
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            // Add Firebase authentication provider as a singleton
+            builder.Services.AddSingleton<FirebaseAuthProvider>(_ =>
+            {
+                return new FirebaseAuthProvider(new FirebaseConfig("AIzaSyDRz7ANRNprp8lFU9tQ1Jx5QQE6chSY2KA\r\n"));
+            });
+
 
             var app = builder.Build();
 
