@@ -1,4 +1,6 @@
 using Firebase.Auth;
+using Microsoft.EntityFrameworkCore;
+using Stor_E_Books.Data;
 
 namespace Stor_E_Books
 {
@@ -15,12 +17,15 @@ namespace Stor_E_Books
             });
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddTransient<IHomeRepository, HomeRepository>();
             // Add Firebase authentication provider as a singleton
             builder.Services.AddSingleton<FirebaseAuthProvider>(_ =>
             {
                 return new FirebaseAuthProvider(new FirebaseConfig("AIzaSyDRz7ANRNprp8lFU9tQ1Jx5QQE6chSY2KA\r\n"));
             });
 
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+              options.UseSqlServer(builder.Configuration.GetConnectionString("Stor-E-Books")));
 
             var app = builder.Build();
 
