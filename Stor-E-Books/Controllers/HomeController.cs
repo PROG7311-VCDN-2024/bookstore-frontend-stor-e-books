@@ -126,66 +126,10 @@ namespace Stor_E_Books.Controllers
             return View();
         }
 
-        public IActionResult ShowItems(string bookName, string Author, string Genre, string Price )
+        public IActionResult Cart()
         {
-            string bookname, author, genre, price;
-            bookname = bookName;
-            author = Author;
-            genre = Genre;
-            price = Price;
-            SqlConnection con = new SqlConnection(@"Data Source=LUBNAH\SQLEXPRESS;Initial Catalog=Stor-E-Books;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
-            
-            try
-            {
-                string Qry = "SELECT * FROM ITEMS WHERE bookname = '" + bookName + "' and author = '" + Author + "' and genre = '" + Genre + "' and price = '" + Price + "'";
-                SqlCommand cmd = new SqlCommand(Qry, con);
-                cmd.Parameters.AddWithValue("@BookName", bookName);
-                cmd.Parameters.AddWithValue("@Author", Author);
-                cmd.Parameters.AddWithValue("@Genre", Genre);
-                cmd.Parameters.AddWithValue("@Price", Price);
-
-                SqlDataAdapter sda = new SqlDataAdapter(Qry, con);
-                DataTable dataTable = new DataTable();
-                sda.Fill(dataTable);
-
-                if (dataTable.Rows.Count > 0)
-                {
-
-                    ViewBag.Message = "";
-                    return View(dataTable);
-
-                    //ViewBag.Message = "Login successful!";
-                }
-                else
-                {
-                    ViewBag.Message = "No items found matching the criteria";
-                }
-            }
-            catch (Exception ex)
-            {
-
-                ViewBag.Message = "An error occurred: " + ex.Message;
-            }
-            finally
-            {
-                con.Close();
-            }
-
-
-            return View();
-
-            //adding items into the list 
-
-            //if (ItemsManager.itm.Count == 0)
-            //{
-            //    ItemsManager.itm.Add(new Items(1, "Harry potter", "J.K Rowling", "Fantasy", 450));
-            //    ItemsManager.itm.Add(new Items(2, "Hunger Games", "Suzanne Collins", "Sci-Fi", 350));
-            //    ItemsManager.itm.Add(new Items(3, "The Notebook", "Nicholas Sparks", "Romance", 650));
-            //    ItemsManager.itm.Add(new Items(4, "Pride and Prejudice", "Jane Austen", "Romance", 600));
-            //    ItemsManager.itm.Add(new Items(5, "The Great Gatsby", "F. Scott Fitzgerald", "Clasic", 550));
-            //}
-
-            //return View(ItemsManager.itm);
+            // Logic to retrieve cart items and display cart page
+            return View(); // Return the cart view
         }
 
         [HttpGet]

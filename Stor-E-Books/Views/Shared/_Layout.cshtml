@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="~/Stor_E_Books.styles.css" asp-append-version="true" />
 </head>
 <body>
+    <link rel="stylesheet" href="path/to/font-awesome/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-bUqgP6b+fqUHNLEigY+8DdsTbBfKoBOgVqYttWjxjq2rjE4F+mu2UZ4mzoDR5RBo4KtBN5zUjdLKXvMgLEO9cA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -25,17 +28,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark btn btn-primary font-weight-bold" asp-area="" asp-controller="Home" asp-action="LogIn">Log-In-Now!</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-primary font-weight-bold" asp-area="" asp-controller="Home" asp-action="ShowItems">Browse!</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-primary font-weight-bold" asp-area="" asp-controller="Account" asp-action="SignUp">SignUp!</a>
-                        </li>
-
-
-
-
                     </ul>
+                    <!-- Cart Button -->
+                    <!-- Cart Button with Image -->
+                    <a href="@Url.Action("Cart", "Home")" class="nav-link text-dark">
+                        <img src=~/Images/cartimage.png alt="Cart" width="30" height="30">
+                    </a>
+
                 </div>
             </div>
         </nav>
@@ -56,4 +55,5 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
