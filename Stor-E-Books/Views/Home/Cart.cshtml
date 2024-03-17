@@ -1,7 +1,33 @@
-﻿
+﻿@model List<CART_ITEM>
+
 @{
     ViewData["Title"] = "Cart";
 }
 
 <h1>Cart</h1>
 
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Book Name</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.bookID</td>
+                   
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Your cart is empty.</p>
+}

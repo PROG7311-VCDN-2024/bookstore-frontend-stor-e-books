@@ -128,31 +128,11 @@ namespace Stor_E_Books.Controllers
 
         public IActionResult Cart()
         {
-            // Logic to retrieve cart items and display cart page
-            return View(); // Return the cart view
-        }
 
-        [HttpGet]
-        public IActionResult AddToCart()
-        {
             return View();
         }
-     
-        [HttpPost]
-        public IActionResult AddToCart(int BookID, string BookName)
-        {
 
-            CartManager.cat.Add(item: new CART_ITEM { bookID = BookID});
-            
 
-            return RedirectToAction("ShowItems");
-        }
-
-        public IActionResult Search(string searchTerm)
-        {
-            var matchingBooks = ItemsManager.itm.Where(book => book.BookName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
-            return View("ShowItems", matchingBooks);
-        }
     }
 }
 
